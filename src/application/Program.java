@@ -1,13 +1,18 @@
 package application;
 
-import boardgame.Posicao;
+import java.util.Scanner;
+
+import xadrez.PartidaXadrez;
 
 public class Program {
 
 	public static void main(String[] args) {
-		Posicao po = new Posicao(4,6);
-		System.out.print(po);
-
+		Scanner sc = new Scanner(System.in);
+		PartidaXadrez x = new PartidaXadrez();
+		UI.printTabuleiro(x.getPeças());
+		
+		
+		sc.close();
 }
 
 }
