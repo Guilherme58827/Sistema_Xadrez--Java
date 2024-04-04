@@ -17,6 +17,8 @@ public class PecaXadrez extends Peca {
 		return cor;
 	}
 
+
+	
 	
 	
 }
