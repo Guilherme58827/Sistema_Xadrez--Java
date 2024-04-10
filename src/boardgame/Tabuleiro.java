@@ -38,6 +38,18 @@ public class Tabuleiro {
 		
 		return peças[posicao.getLinha()][posicao.getColuna()];
 	}
+	public Peca removerPeca(Posicao posicao) throws TabuleiroException {
+		if(!existePosicao(posicao)) {
+			throw new TabuleiroException("erro de posição: a posição dessa peça não existe.");
+		}
+		if(peca(posicao)==null) {
+			return null;
+		}
+		Peca aux = peca(posicao);
+		aux.posicao=null;
+		peças [posicao.getLinha()] [posicao.getColuna()]= null;
+		return aux;
+	}
 	public void lugarPeça( Peca peça, Posicao posicao) throws TabuleiroException {
 		if(issoEPeca(posicao)) {
 			throw new TabuleiroException("erro de posição: a posição já está ocupada.");
