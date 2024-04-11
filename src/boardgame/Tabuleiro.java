@@ -1,5 +1,7 @@
 package boardgame;
 
+import xadrez.PecaXadrez;
+
 public class Tabuleiro {
 	private int linhas;
 	private int colunas;

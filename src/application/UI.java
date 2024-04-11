@@ -3,7 +3,9 @@ package application;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import boardgame.TabuleiroException;
 import xadrez.Cor;
+import xadrez.PartidaXadrez;
 import xadrez.PecaXadrez;
 import xadrez.PosicaoXadrez;
 import xadrez.XadrezException;
@@ -33,6 +35,7 @@ public class UI {
 	public static void clearScreen() {
 		System.out.print("\033[H\033[2J");
 		System.out.flush();
+		
 	}
 
 	public static PosicaoXadrez lerPosicaoXadrez(Scanner sc) throws XadrezException {
@@ -46,12 +49,31 @@ public class UI {
 			throw new InputMismatchException("erro ao ler os dados: valor aceitavel de a1 até h8");
 		}
 	}
+	
+	public static void printPartida(PartidaXadrez partidaXadrez) throws TabuleiroException {
+		printTabuleiro(partidaXadrez.getPeças());
+		System.out.println();
+		System.out.println("turno: " + partidaXadrez.getTurno());
+		System.out.println("Jogada do jogador " + partidaXadrez.getJogadorAtual());
+		
+	}
 
 	public static void printTabuleiro(PecaXadrez[][] peças) {
 		for (int i = 0; i < peças.length; i++) {
 			System.out.print((8 - i) + " ");
 			for (int j = 0; j < peças.length; j++) {
-				printPeça(peças[i][j]);
+				printPeça(peças[i][j], false);
+
+			}
+			System.out.println();
+		}
+		System.out.println("  a b c d e f g h");
+	}
+	public static void printTabuleiro(PecaXadrez[][] peças, boolean [][] movPossiveis) {
+		for (int i = 0; i < peças.length; i++) {
+			System.out.print((8 - i) + " ");
+			for (int j = 0; j < peças.length; j++) {
+				printPeça(peças[i][j], movPossiveis[i][j]==true);
 
 			}
 			System.out.println();
@@ -59,9 +81,12 @@ public class UI {
 		System.out.println("  a b c d e f g h");
 	}
 
-	private static void printPeça(PecaXadrez peça) {
+	private static void printPeça(PecaXadrez peça, boolean corDeFundo) {
+		if(corDeFundo== true) {
+			System.out.print( ANSI_GREEN_BACKGROUND );
+		}
 		if (peça == null) {
-			System.out.print("-");
+			System.out.print("-" + ANSI_RESET);
 		} else {
 			if (peça.getCor() == Cor.BRANCO) {
 				System.out.print(ANSI_WHITE + peça + ANSI_RESET);
